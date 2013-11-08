@@ -1,9 +1,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <item
+    <item android:id="@+id/action_alarms" android:title="Alarms" android:titleCondensed="Alarms" android:showAsAction="ifRoom" android:onClick="handleMenuClick"></item><item android:id="@+id/action_stats" android:title="Statistics" android:titleCondensed="Stats" android:showAsAction="ifRoom"></item><item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
-        android:showAsAction="never"
+        android:showAsAction="ifRoom"
         android:title="@string/action_settings"/>
+    
+    
 
 </menu>

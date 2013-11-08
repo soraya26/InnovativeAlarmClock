@@ -1,4 +1,4 @@
-package com.higley.innovativealarmclock;
+package com.iac.innovativealarmclock;
 
 import java.util.Random;
 
@@ -69,7 +69,7 @@ public class MathGenerator {
 		while (true) {
 			double off = random.nextGaussian();
 			integerOff = (int) (off * answer / STDDEVIATION_FACTOR);
-			if (integerOff != answer)
+			if (integerOff != 0)
 			{
 				break;
 			}

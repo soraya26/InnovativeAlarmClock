@@ -1,4 +1,4 @@
-package com.higley.innovativealarmclock;
+package com.iac.innovativealarmclock;
 
 import java.util.ArrayList;
 import java.util.List;
