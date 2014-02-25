@@ -3,36 +3,39 @@ package com.iac.innovativealarmclock;
 import java.util.HashMap;
 import java.util.List;
 
-import com.higley.innovativealarmclock.R;
+import com.iac.innovativealarmclock.R;
 
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.annotation.SuppressLint;
+import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.v4.app.NavUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 public class AlarmsActivity extends Activity {
 
 	private static final int NEWALARM_REQUEST_CODE = 1855;
 
 	private AlarmController alarmManager = null;
-	private StableArrayAdapter adapter;
+	private AlarmArrayAdapter adapter;
 	private boolean inEdit;
 	private Alarm editingAlarm;
 	ListView alarmList;
 	List<Alarm> alarms;
 
-	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
@@ -49,40 +52,45 @@ public class AlarmsActivity extends Activity {
 		loadAlarmList();
 	}
 
-	@Override
+	@SuppressLint("NewApi") //FIXME
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.alarms, menu);
+		ActionBar actionBar = getActionBar();
+		actionBar.setDisplayHomeAsUpEnabled(true);
 		return true;
-	}
-
-	public void handleMenuClick(MenuItem item)
-	{
-		//TODO: clean this up
-		String itemTitle = (String)item.getTitle();
-		if (itemTitle.equals("Home"))
-		{
-			Intent alarmsIntent = new Intent(AlarmsActivity.this, Home.class);
-			AlarmsActivity.this.startActivity(alarmsIntent);
-			AlarmsActivity.this.overridePendingTransition(0, 0);
-		}
-		else if (itemTitle.equals("Add Alarm"))
-		{
-			inEdit = false;
-			Intent newAlarmIntent = new Intent(AlarmsActivity.this, NewAlarmActivity.class);
-			AlarmsActivity.this.startActivityForResult(newAlarmIntent, NEWALARM_REQUEST_CODE);
-		}
 	}
 
 	protected void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
 		super.onActivityResult(requestCode, resultCode, data);
 
+		// If this is a alarm settings activity being closed
 		if (requestCode == NEWALARM_REQUEST_CODE)
 		{
 			updateAlarm();
 		}
+	}
+	
+	public boolean onOptionsItemSelected(MenuItem item) {
+		Log.v("IAC", "Click");
+		
+		switch(item.getItemId())
+		{
+		case R.id.action_add_alarm:
+			inEdit = false;
+			resetPreferences();
+			
+			Intent newAlarmIntent = new Intent(AlarmsActivity.this, NewAlarmActivity.class);
+			AlarmsActivity.this.startActivityForResult(newAlarmIntent, NEWALARM_REQUEST_CODE);
+			return true;
+		case android.R.id.home:
+			NavUtils.navigateUpFromSameTask(this);
+			return true;
+		}
+		
+		return false;
 	}
 
 	private void updateAlarm()
@@ -92,6 +100,8 @@ public class AlarmsActivity extends Activity {
 		boolean alarm_status = prefs.getBoolean("preference_status", true);
 		String alarm_name = prefs.getString("preference_name", "");
 		String alarm_time_str = prefs.getString("preference_time", "0:00");
+		
+		// Adding a new alarm
 		if (!inEdit)
 		{
 			Alarm alarm = new Alarm();
@@ -100,6 +110,7 @@ public class AlarmsActivity extends Activity {
 			alarm.setNextOccurance(alarm_time_str);
 			alarm = alarmManager.insertAlarm(alarm);
 		}
+		// Modifying an existing alarm
 		else
 		{
 			editingAlarm.setName(alarm_name);
@@ -107,57 +118,24 @@ public class AlarmsActivity extends Activity {
 			editingAlarm.setNextOccurance(alarm_time_str);
 			alarmManager.updateAlarm(editingAlarm);
 		}
+		
 		loadAlarmList();
-	}
-
-	private class StableArrayAdapter extends ArrayAdapter<Alarm> {
-
-		HashMap<Alarm, Integer> mIdMap = new HashMap<Alarm, Integer>();
-
-		public StableArrayAdapter(Context context, int textViewResourceId,
-				List<Alarm> objects) {
-			super(context, textViewResourceId, objects);
-			for (int i = 0; i < objects.size(); ++i) {
-				mIdMap.put(objects.get(i), i);
-			}
-		}
-
-		@Override
-		public long getItemId(int position) {
-			Alarm item = getItem(position);
-			return mIdMap.get(item);
-		}
-
-		@Override
-		public boolean hasStableIds() {
-			return true;
-		}
-
 	}
 
 	private void loadAlarmList()
 	{
 		alarms = alarmManager.getAllAlarms();
-		adapter = new StableArrayAdapter(this,
-				android.R.layout.simple_list_item_1, alarms);
+		adapter = new AlarmArrayAdapter(this, android.R.layout.simple_list_item_1, alarms);
 		AlarmController.setNextAlarm(alarms, this);
 		alarmList.setAdapter(adapter);
 
 
 		alarmList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3) {
-				// TODO Auto-generated method stub
-				Log.v("IAC", arg2 + " " + arg3);
-				Alarm alarm = adapter.getItem(arg2);
-				SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-				SharedPreferences.Editor editor = prefs.edit();
-				editor.putBoolean("preference_status", alarm.getIsSet());
-				editor.putString("preference_name", alarm.getName());
-				editor.putString("preference_time", alarm.getTimeString());
-				editor.apply();
+			public void onItemClick(AdapterView<?> adapterView, View view, int position,
+					long id) {
+				Alarm alarm = adapter.getItem(position);
+				setPreferencesByAlarm(alarm);
 
 				inEdit = true;
 				editingAlarm = alarm;
@@ -166,20 +144,84 @@ public class AlarmsActivity extends Activity {
 			}
 
 		});
-		
+
 		alarmList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
 
-			@Override
-			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
-					int arg2, long arg3) {
-				//TODO: dialog
-				Alarm alarm = adapter.getItem(arg2);
-				alarmManager.deleteAlarm(alarm);
-				loadAlarmList();
+			public boolean onItemLongClick(AdapterView<?> adapterView, View view,
+					int position, long id) {
+				editingAlarm = adapter.getItem(position);
+				raiseAlarmDialog();
 				
 				return false;
 			}
 		});
+	}
+	
+	private void setPreferencesByAlarm(Alarm alarm)
+	{
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+		SharedPreferences.Editor editor = prefs.edit();
+		editor.putBoolean("preference_status", alarm.getIsSet());
+		editor.putString("preference_name", alarm.getName());
+		editor.putString("preference_time", alarm.getTimeString());
+		editor.apply();
+	}
+	
+	private void resetPreferences()
+	{
+		Alarm alarm = new Alarm();
+		alarm.setDefaultValues();
+		setPreferencesByAlarm(alarm);
+	}
+	
+	private void raiseAlarmDialog()
+	{	
+		AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+		dialogBuilder.setTitle(getString(R.string.str_delete_confirm_title));
+		dialogBuilder.setMessage(getString(R.string.str_delete_confirm_message));
+		dialogBuilder.setCancelable(true);
+		dialogBuilder.setPositiveButton(getString(R.string.str_delete_confirm_delete), new DialogInterface.OnClickListener() {
+			
+			public void onClick(DialogInterface dialog, int which) {
+				deleteSelectedAlarm();
+			}
+		});
+		dialogBuilder.setNegativeButton(getString(R.string.str_delete_confirm_cancel), new DialogInterface.OnClickListener() {
+			
+			public void onClick(DialogInterface dialog, int which) {
+				// Do nothing
+			}
+		});
+		Dialog dialog = dialogBuilder.create();
+		dialog.show();
+	}
+	
+	private void deleteSelectedAlarm()
+	{
+		alarmManager.deleteAlarm(editingAlarm);
+		loadAlarmList();
+	}
+
+	private class AlarmArrayAdapter extends ArrayAdapter<Alarm> {
+
+		HashMap<Alarm, Integer> mIdMap = new HashMap<Alarm, Integer>();
+
+		public AlarmArrayAdapter(Context context, int textViewResourceId, List<Alarm> objects) {
+			super(context, textViewResourceId, objects);
+			for (int i = 0; i < objects.size(); i++) {
+				mIdMap.put(objects.get(i), i);
+			}
+		}
+
+		public long getItemId(int position) {
+			Alarm item = getItem(position);
+			return mIdMap.get(item);
+		}
+
+		public boolean hasStableIds() {
+			return true;
+		}
+
 	}
 
 }

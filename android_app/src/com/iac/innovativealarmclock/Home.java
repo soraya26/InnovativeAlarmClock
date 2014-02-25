@@ -1,6 +1,6 @@
 package com.iac.innovativealarmclock;
 
-import com.higley.innovativealarmclock.R;
+import com.iac.innovativealarmclock.R;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -9,7 +9,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.TextView;
 
 public class Home extends Activity {
@@ -35,30 +34,28 @@ public class Home extends Activity {
 		text_time = (TextView) findViewById(R.id.home_textview_alarm_time);
 		text_name = (TextView) findViewById(R.id.home_textview_alarm_name);
 		
-		//FIXME: remove
-		text_time.setOnClickListener(setoffListener);
-		
 		updateText();
 	}
 
-	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.home, menu);
+		
 		return true;
 	}
 	
-	public void handleMenuClick(MenuItem item)
+	public boolean onOptionsItemSelected(MenuItem item)
 	{
-		//TODO: clean this up
-		String itemTitle = (String)item.getTitle();
-		if (itemTitle.equals("Alarms"))
+		switch(item.getItemId())
 		{
+		case R.id.action_alarms:
 			Intent alarmsIntent = new Intent(Home.this, AlarmsActivity.class);
 			Home.this.startActivity(alarmsIntent);
 			Home.this.overridePendingTransition(0, 0);
+			return true;
 		}
+		
+		return false;
 	}
 	
 	private void updateText()

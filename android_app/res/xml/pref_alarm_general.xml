@@ -8,7 +8,7 @@
          dismiss it.
     -->
     <!-- NOTE: ListPreference's summary should be set to its value by the activity code. -->
-    <SwitchPreference android:switchTextOn="On" android:summaryOn="The alarm is active" android:switchTextOff="Off" android:summaryOff="The alarm is inactive" android:title="Status" android:key="preference_status"/><com.higley.innovativealarmclock.TimePreference android:title="Set alarm time" android:key="preference_time"/>
+    <SwitchPreference android:switchTextOn="On" android:summaryOn="The alarm is active" android:switchTextOff="Off" android:summaryOff="The alarm is inactive" android:title="Status" android:key="preference_status"/><com.iac.innovativealarmclock.TimePreference android:title="Set alarm time" android:key="preference_time"/>
     <EditTextPreference android:title="Timer name" android:key="preference_name"/>
     
 

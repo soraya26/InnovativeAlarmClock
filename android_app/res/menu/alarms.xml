@@ -1,6 +1,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
-    <item android:id="@+id/action_add_alarm" android:titleCondensed="Add" android:title="Add Alarm" android:showAsAction="always" android:onClick="handleMenuClick"></item><item android:id="@+id/action_home" android:title="Home" android:titleCondensed="Home" android:showAsAction="ifRoom" android:onClick="handleMenuClick"></item><item android:id="@+id/action_stats" android:title="Statistics" android:titleCondensed="Stats" android:showAsAction="ifRoom"></item><item
+    <item android:id="@+id/action_add_alarm" android:titleCondensed="Add" android:title="Add Alarm" android:showAsAction="always"></item><item android:id="@+id/action_stats" android:title="Statistics" android:titleCondensed="Stats" android:showAsAction="ifRoom"></item><item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:showAsAction="ifRoom"

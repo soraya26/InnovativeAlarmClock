@@ -7,15 +7,18 @@ import android.widget.Toast;
 
 public class AlarmReceiver extends BroadcastReceiver {
 
-	@Override
 	public void onReceive(Context context, Intent intent) {
+		//TODO: Prepare for NFC recognition
+		
+		//----- Dummy alarm code -----
 		Toast.makeText(context, "Ring ring ring.", Toast.LENGTH_LONG).show();
 		
-		// Load simple pluzzle
+		// Load simple puzzle
 		Intent puzzleIntent = new Intent();
-		puzzleIntent.setClassName("com.higley.innovativealarmclock", "com.higley.innovativealarmclock.SimplePuzzle");
+		puzzleIntent.setClassName("com.iac.innovativealarmclock", "com.iac.innovativealarmclock.SimplePuzzle");
 		puzzleIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		context.startActivity(puzzleIntent);
+		//----------------------------
 	}
 
 }

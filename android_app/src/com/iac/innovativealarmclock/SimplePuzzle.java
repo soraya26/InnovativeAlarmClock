@@ -2,7 +2,7 @@ package com.iac.innovativealarmclock;
 
 import java.util.ArrayList;
 
-import com.higley.innovativealarmclock.R;
+import com.iac.innovativealarmclock.R;
 
 import android.os.Bundle;
 import android.app.Activity;

@@ -1,7 +1,6 @@
 package com.iac.innovativealarmclock;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class QuestionMC {
 	

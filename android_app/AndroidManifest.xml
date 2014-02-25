@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.higley.innovativealarmclock"
+    package="com.iac.innovativealarmclock"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -29,11 +29,14 @@
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.higley.innovativealarmclock.Home" />
+                android:value="com.iac.innovativealarmclock.Home" />
         </activity>
         <activity
             android:name="com.iac.innovativealarmclock.AlarmsActivity"
             android:label="@string/title_activity_alarms" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.iac.innovativealarmclock.Home" />
         </activity>
         <activity
             android:name="com.iac.innovativealarmclock.NewAlarmActivity"

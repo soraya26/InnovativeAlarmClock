@@ -14,8 +14,13 @@ public class Alarm {
 	private boolean repeats;
 	//TODO: support for repetition details
 
-	// User-set alarm indentifiers
+	// User-set alarm identifiers
 	private String name;
+	
+	// Default values
+	private static final String default_time_string = "7:00";
+	private static final boolean default_isSet = true;
+	private static final String default_name = "";
 
 	// Constructors
 
@@ -85,27 +90,6 @@ public class Alarm {
 		setToNextTimeOccurance();
 	}
 
-	public void setToNextTimeOccurance()
-	{
-		Time now = new Time();
-		now.setToNow();
-		Time currentTime = new Time();
-		currentTime.set(timeNextOccurance);
-		if (!currentTime.after(now))
-		{
-			int hour = currentTime.hour;
-			int minute = currentTime.minute;
-			currentTime = new Time(now);
-			currentTime.hour = hour;
-			currentTime.minute = minute;
-			timeNextOccurance = currentTime.toMillis(false);
-			if (!currentTime.after(now))
-			{
-				timeNextOccurance += (24*60*60*1000);
-			}
-		}
-	}
-
 	public void setName(String aName)
 	{
 		name = aName;
@@ -156,6 +140,34 @@ public class Alarm {
 			return false;
 		}
 		return this.getID() == other.getID();
+	}
+
+	public void setToNextTimeOccurance()
+	{
+		Time now = new Time();
+		now.setToNow();
+		Time currentTime = new Time();
+		currentTime.set(timeNextOccurance);
+		if (!currentTime.after(now))
+		{
+			int hour = currentTime.hour;
+			int minute = currentTime.minute;
+			currentTime = new Time(now);
+			currentTime.hour = hour;
+			currentTime.minute = minute;
+			timeNextOccurance = currentTime.toMillis(false);
+			if (!currentTime.after(now))
+			{
+				timeNextOccurance += (24*60*60*1000);
+			}
+		}
+	}
+	
+	public void setDefaultValues()
+	{
+		setNextOccurance(default_time_string);
+		isSet = default_isSet;
+		name = default_name;
 	}
 
 }
