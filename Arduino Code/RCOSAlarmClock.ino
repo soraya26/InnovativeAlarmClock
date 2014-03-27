@@ -8,6 +8,7 @@
 #include <boards.h>
 #include <ble_shield.h>
 #include <services.h>
+#include "defines.h"
 
 /**************************************************************/
 /********************   Global Variables  *********************/
