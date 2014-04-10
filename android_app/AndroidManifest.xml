@@ -42,7 +42,14 @@
             android:name="com.iac.innovativealarmclock.NewAlarmActivity"
             android:label="@string/title_activity_new_alarm" >
         </activity>
-        
+        <activity
+            android:name="com.iac.innovativealarmclock.Stats"
+            android:label="@string/stats" >
+        </activity>
+        <activity
+            android:name="com.iac.innovativealarmclock.Settings"
+            android:label="@string/settings" >
+        </activity>
         <receiver android:name="AlarmReceiver" />
     </application>
     

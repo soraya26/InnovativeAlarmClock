@@ -13,5 +13,11 @@
     <string name="str_delete_confirm_message">Are you sure you want to delete this alarm?</string>
     <string name="str_delete_confirm_delete">Delete</string>
     <string name="str_delete_confirm_cancel">Cancel</string>
+    <string name="stats">stats</string>
+    <string name="stats_description">We will have information on users sleep patterns etc.</string>
+    <string name="stats_welcome">Welcome to the Statistics Page!</string>
+    <string name="settings">settings</string>
+    <string name="settings_welcome">Welcome to the Settings Page!</string>
+    <string name="settings_description">We will have options for app.  Will discuss</string>
 
 </resources>

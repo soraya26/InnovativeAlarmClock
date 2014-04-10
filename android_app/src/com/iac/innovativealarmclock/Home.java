@@ -53,6 +53,18 @@ public class Home extends Activity {
 			Home.this.startActivity(alarmsIntent);
 			Home.this.overridePendingTransition(0, 0);
 			return true;
+		
+		case R.id.action_stats:
+			Intent statsIntent = new Intent(Home.this, Stats.class);
+			Home.this.startActivity(statsIntent);
+			Home.this.overridePendingTransition(0, 0);
+			return true;
+			
+		case R.id.action_settings:
+			Intent settingsIntent = new Intent(Home.this, Settings.class);
+			Home.this.startActivity(settingsIntent);
+			Home.this.overridePendingTransition(0, 0);
+			return true;
 		}
 		
 		return false;

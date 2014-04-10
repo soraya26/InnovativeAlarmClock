@@ -85,6 +85,7 @@ public class Alarm {
 		Time todayTime = new Time(now);
 		todayTime.hour = hour;
 		todayTime.minute = minute;
+		todayTime.second = 0;
 		timeNextOccurance = todayTime.toMillis(false);
 		
 		setToNextTimeOccurance();
