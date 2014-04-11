@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
+import android.util.Log;
 
 public class Home extends Activity {
 	
@@ -63,6 +64,14 @@ public class Home extends Activity {
 		case R.id.action_settings:
 			Intent settingsIntent = new Intent(Home.this, Settings.class);
 			Home.this.startActivity(settingsIntent);
+			Home.this.overridePendingTransition(0, 0);
+			return true;
+			
+		case R.id.action_test_puzzle: //s testing the test puzzle function, borrowed code from AlarmReciever.java
+			Log.v("test message hit", "hope this works");
+			Intent puzzleIntent = new Intent(this, SimplePuzzle.class);
+			//puzzleIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+			Home.this.startActivity(puzzleIntent);;
 			Home.this.overridePendingTransition(0, 0);
 			return true;
 		}
