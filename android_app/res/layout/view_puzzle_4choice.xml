@@ -20,7 +20,28 @@
             android:text="@string/str_placeholder"
             android:textAppearance="?android:attr/textAppearanceMedium" />
     </TableRow>
+	
+    <TableRow
+        android:id="@+id/tableRowAnswerBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:paddingBottom="20dp"
+        
+        >
 
+        <EditText
+            android:id="@+id/answer_box"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="&quot;Enter your answer&quot;"
+            android:inputType="numberDecimal" >
+
+        </EditText>
+
+    </TableRow>
+    
     <TableRow
         android:id="@+id/tableRowChoice1"
         android:layout_width="match_parent"

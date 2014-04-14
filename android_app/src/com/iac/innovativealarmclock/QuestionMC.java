@@ -7,6 +7,7 @@ public class QuestionMC {
 	private String question;
 	private ArrayList<String> options = null;
 	private int correctIndex;
+	private int correctAnswer;
 	
 	public void setQuestion(String aQuestion)
 	{
@@ -45,6 +46,12 @@ public class QuestionMC {
 	public int getCorrectIndex()
 	{
 		return correctIndex;
+	}
+	public void setCorrectAnswer(int answer) {
+		correctAnswer = answer;
+	}
+	public int getCorrectAnswer() {
+		return correctAnswer;
 	}
 
 }

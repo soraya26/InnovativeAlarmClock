@@ -1,6 +1,7 @@
 package com.iac.innovativealarmclock;
 
 import java.util.Random;
+import android.util.Log;
 
 public class MathGenerator {
 	
@@ -9,6 +10,7 @@ public class MathGenerator {
 	private static final int OPERATOR_MULTIPLICATION = 2;
 	
 	private static final int STDDEVIATION_FACTOR = 5;
+	static int answer = 0;
 	
 	public static QuestionMC generateArithmeticQuestion(int optionCount)
 	{
@@ -17,7 +19,7 @@ public class MathGenerator {
 		// Generate question
 		Random random = new Random();
 		int operator = random.nextInt(3);
-		int num1, num2, answer;
+		int num1, num2;
 		String questionText = new String();
 		switch (operator)
 		{
@@ -25,18 +27,24 @@ public class MathGenerator {
 			num1 = random.nextInt(99) + 1;
 			num2 = random.nextInt(99) + 1;
 			answer = num1 + num2;
+			Log.v("Debug", num1+" and "+num2+" were used to create the answer "+answer);
+			question.setCorrectAnswer(answer);
 			questionText = num1 + " + " + num2  + " =";
 			break;
 		case OPERATOR_SUBTRACTION:
 			num1 = random.nextInt(99) + 1;
 			num2 = random.nextInt(num1 - 1) + 1;
 			answer = num1 - num2;
+			question.setCorrectAnswer(answer);
+			Log.v("Debug", num1+" and "+num2+" were used to create the answer "+answer);
 			questionText = num1 + " - " + num2 + " =";
 			break;
 		case OPERATOR_MULTIPLICATION:
 			num1 = random.nextInt(12) + 1;
 			num2 = random.nextInt(12) + 1;
 			answer = num1 * num2;
+			question.setCorrectAnswer(answer);
+			Log.v("Debug", num1+" and "+num2+" were used to create the answer "+answer);
 			questionText = num1 + " x " + num2 + " =";
 			break;
 		default:
@@ -76,6 +84,11 @@ public class MathGenerator {
 		}
 		
 		return (integerOff + answer);
+	}
+	public int getAnswer() {
+		Log.v("Returning", "Returning answer, which is "+answer);
+		return answer;
+		
 	}
 
 }
