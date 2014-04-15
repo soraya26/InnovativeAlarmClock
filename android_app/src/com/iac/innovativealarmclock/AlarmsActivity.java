@@ -74,7 +74,6 @@ public class AlarmsActivity extends Activity {
 	}
 	
 	public boolean onOptionsItemSelected(MenuItem item) {
-		Log.v("IAC", "Click");
 		
 		switch(item.getItemId())
 		{
@@ -88,6 +87,17 @@ public class AlarmsActivity extends Activity {
 		case android.R.id.home:
 			NavUtils.navigateUpFromSameTask(this);
 			return true;
+			
+		case R.id.action_stats:
+			Intent statsIntent = new Intent(AlarmsActivity.this, Stats.class);
+			AlarmsActivity.this.startActivity(statsIntent);
+			AlarmsActivity.this.overridePendingTransition(0, 0);
+			return true;
+			
+		case R.id.action_settings:
+			Intent settingsIntent = new Intent(AlarmsActivity.this, Settings.class);
+			AlarmsActivity.this.startActivity(settingsIntent);
+			AlarmsActivity.this.overridePendingTransition(0, 0);
 		}
 		
 		return false;

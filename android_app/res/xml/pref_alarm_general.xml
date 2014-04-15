@@ -10,7 +10,7 @@
     <!-- NOTE: ListPreference's summary should be set to its value by the activity code. -->
     <SwitchPreference android:switchTextOn="On" android:summaryOn="The alarm is active" android:switchTextOff="Off" android:summaryOff="The alarm is inactive" android:title="Status" android:key="preference_status"/><com.iac.innovativealarmclock.TimePreference android:title="Set alarm time" android:key="preference_time"/>
     <EditTextPreference android:title="Timer name" android:key="preference_name"/>
-    <RingtonePreference android:key="preference_ringtone" android:title="Ringtone" android:ringtoneType="alarm" android:showSilent="true" android:showDefault="false"/>
+    <RingtonePreference android:key="preference_ringtone" android:title="Ringtone" android:ringtoneType="ringtone" android:showSilent="true" android:showDefault="false"/>
     <SwitchPreference android:summaryOff="Vibration is off" android:switchTextOn="On" android:summaryOn="Vibration is on" android:switchTextOff="Off" android:title="Vibration" android:key="preference_vibration"/>
     
 

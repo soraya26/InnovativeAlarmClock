@@ -45,10 +45,16 @@
         <activity
             android:name="com.iac.innovativealarmclock.Stats"
             android:label="@string/stats" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.iac.innovativealarmclock.Home" />
         </activity>
         <activity
             android:name="com.iac.innovativealarmclock.Settings"
             android:label="@string/settings" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.iac.innovativealarmclock.Home" />
         </activity>
         <receiver android:name="AlarmReceiver" />
     </application>

@@ -59,6 +59,8 @@ public class AlarmController {
 		values.put(DBManager.TB_ALARMS_COL_NEXT, alarm.getNextOccurance());
 		values.put(DBManager.TB_ALARMS_COL_ISSET, alarm.getIsSet());
 		values.put(DBManager.TB_ALARMS_COL_REPEATS, alarm.getRepeats());
+		values.put(DBManager.TB_ALARMS_COL_RINGTONE, alarm.getRingtone());
+		values.put(DBManager.TB_ALARMS_COL_VIBRATE, alarm.getVibrate());
 		
 		long ID = db.insert(DBManager.TB_ALARMS_NAME, null, values);
 		alarm.setID(ID);
@@ -73,6 +75,8 @@ public class AlarmController {
 		values.put(DBManager.TB_ALARMS_COL_NEXT, alarm.getNextOccurance());
 		values.put(DBManager.TB_ALARMS_COL_ISSET, alarm.getIsSet());
 		values.put(DBManager.TB_ALARMS_COL_REPEATS, alarm.getRepeats());
+		values.put(DBManager.TB_ALARMS_COL_RINGTONE, alarm.getRingtone());
+		values.put(DBManager.TB_ALARMS_COL_VIBRATE, alarm.getVibrate());
 		
 		db.update(DBManager.TB_ALARMS_NAME, values, DBManager.TB_ALARMS_COL_ID + "=?", new String[] { Long.toString(alarm.getID()) });
 	}
@@ -87,7 +91,7 @@ public class AlarmController {
 		List<Alarm> allAlarms = new ArrayList<Alarm>();
 		
 		Cursor cursor = db.query(DBManager.TB_ALARMS_NAME, DBManager.TB_ALARMS_ALLCOLS,
-				null, null, null, null, null);
+				null, null, null, null, null, null);
 		cursor.moveToFirst();
 		while (!cursor.isAfterLast())
 		{

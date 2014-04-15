@@ -17,6 +17,10 @@ public class Alarm {
 	// User-set alarm identifiers
 	private String name;
 	
+	// User-set ringtone
+	private int ringtone;
+	private boolean vibrate;
+	
 	// Default values
 	private static final String default_time_string = "7:00";
 	private static final boolean default_isSet = true;
@@ -31,10 +35,19 @@ public class Alarm {
 		repeats = false;
 		name = "";
 		ID = -1;
+		ringtone = 0;
 	}
 	
 	// Getters and setters
 
+	public int getRingtone()
+	{
+		return ringtone;
+	}
+	public boolean getVibrate()
+	{
+		return vibrate;
+	}
 	public boolean getIsSet()
 	{
 		return isSet;

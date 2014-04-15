@@ -57,6 +57,8 @@ public class NewAlarmActivity extends PreferenceActivity {
 		bindPreferenceSummaryToValue(findPreference("preference_time"));
 		bindPreferenceSummaryToValue(findPreference("preference_name"));
 		bindPreferenceSummaryToValue(findPreference("preference_status"));
+		bindPreferenceSummaryToValue(findPreference("preference_ringtone"));
+		bindPreferenceSummaryToValue(findPreference("preference_vibrate"));
 
 		/*
 		// Add 'notifications' preferences, and a corresponding header.
