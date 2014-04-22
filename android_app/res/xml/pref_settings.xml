@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+        <SwitchPreference android:key="pref_settings_time" android:summaryOn="Using 24-Hour Time" android:title="Time" android:summaryOff="Using 12-Hour Time" android:switchTextOff="Off" android:switchTextOn="On"/>
+        <RingtonePreference android:title="Ringtone" android:key="pref_default_ringtone"/>
+    </PreferenceScreen>
